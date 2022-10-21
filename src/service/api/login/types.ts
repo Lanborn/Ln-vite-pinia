@@ -1,7 +1,6 @@
 export interface ILoginParams {
-  userName: string
-  passWord: string | number
-  code: string
+  username: string
+  password: string | number
 }
 export interface IRegisterParams {
   username: string
