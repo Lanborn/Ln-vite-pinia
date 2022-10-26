@@ -24,15 +24,15 @@ export const rules = {
       trigger: 'blur',
     },
   ],
-  num: [
+  email: [
     {
       required: true,
-      message: '手机号是必传内容~',
+      message: '邮箱是必传内容~',
       trigger: 'blur',
     },
     {
-      pattern: /^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/,
-      message: '必须是中国大陆手机号~',
+      pattern: /^[A-Za-z0-9]+([_\.][A-Za-z0-9]+)*@([A-Za-z0-9\-]+\.)+[A-Za-z]{2,6}$/,
+      message: '必须是正确的邮箱格式~',
       trigger: 'blur',
     },
   ],

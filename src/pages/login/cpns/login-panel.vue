@@ -39,7 +39,13 @@ export default defineComponent({
     const accountRef = ref<InstanceType<typeof LoginAccount>>() // 获取组件对象的类型
     const signInRef = ref<InstanceType<typeof SignInPanel>>()
     const currentTab = ref<string>('account')
-    const handleLoginClick = () => {}
+    const handleLoginClick = () => {
+      if (currentTab.value === 'account') {
+        accountRef.value?.loginAction(isKeepPassword.value)
+      } else {
+        // 调用loginPhone 里面的登陆LoginAction
+      }
+    }
 
     return {
       isKeepPassword,

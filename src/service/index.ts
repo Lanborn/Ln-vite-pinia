@@ -1,6 +1,9 @@
 //http.ts
 import axios, { AxiosRequestConfig } from 'axios'
 import NProgress from 'nprogress'
+import { ElLoading } from 'element-plus'
+
+const DEAFULT_LOADING = true
 
 // 设置请求头和请求路径
 axios.defaults.baseURL = '/api'
@@ -45,14 +48,23 @@ const http: Http = {
   get(url, params) {
     return new Promise((resolve, reject) => {
       NProgress.start()
+      const loadingInstance = ElLoading.service({
+        fullscreen: true,
+        text: '拼命加载中~',
+        lock: true,
+        background: 'rgba(0, 0, 0, 0.7)',
+      })
       axios
         .get(url, { params })
         .then((res) => {
           NProgress.done()
+          loadingInstance.close()
           resolve(res.data)
         })
         .catch((err) => {
           NProgress.done()
+          loadingInstance.close()
+
           reject(err.data)
         })
     })
@@ -60,13 +72,21 @@ const http: Http = {
   post(url, params) {
     return new Promise((resolve, reject) => {
       NProgress.start()
+      const loadingInstance = ElLoading.service({
+        fullscreen: true,
+        text: '拼命加载中~',
+        lock: true,
+        background: 'rgba(0, 0, 0, 0.7)',
+      })
       axios
         .post(url, JSON.stringify(params))
         .then((res) => {
+          loadingInstance.close()
           NProgress.done()
           resolve(res.data)
         })
         .catch((err) => {
+          loadingInstance.close()
           NProgress.done()
           reject(err.data)
         })
@@ -74,16 +94,24 @@ const http: Http = {
   },
   upload(url, file) {
     return new Promise((resolve, reject) => {
+      const loadingInstance = ElLoading.service({
+        fullscreen: true,
+        text: '拼命加载中~',
+        lock: true,
+        background: 'rgba(0, 0, 0, 0.7)',
+      })
       NProgress.start()
       axios
         .post(url, file, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then((res) => {
+          loadingInstance.close()
           NProgress.done()
           resolve(res.data)
         })
         .catch((err) => {
+          loadingInstance.close()
           NProgress.done()
           reject(err.data)
         })

@@ -1,28 +1,37 @@
 <template>
-  <el-form label-width="60px">
-    <el-form-item label="手机号" prop="num">
-      <el-input v-model="phone.num" />
+  <el-form :model="registerInfo" :rules="rules" label-width="60px">
+    <el-form-item label="账号" prop="username">
+      <el-input v-model="registerInfo.username" />
     </el-form-item>
-    <el-form-item label="验证码" prop="code">
-      <div class="get-code">
-        <el-input v-model="phone.code" />
-        <el-button type="primary" class="get-btn">获取验证码</el-button>
-      </div>
+    <el-form-item label="密码" prop="username">
+      <el-input v-model="registerInfo.password" />
+    </el-form-item>
+    <el-form-item label="真名" prop="realname">
+      <el-input v-model="registerInfo.realname" />
+    </el-form-item>
+    <el-form-item label="邮箱" prop="email">
+      <el-input v-model="registerInfo.email" />
     </el-form-item>
   </el-form>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
+import { rules } from '../config/account-config'
 
 export default defineComponent({
   setup() {
-    const phone = reactive({
-      num: '',
-      code: '',
+    const registerInfo = reactive({
+      username: '',
+      password: '',
+      age: 0,
+      realname: '',
+      sex: 0,
+      email: '',
     })
     return {
-      phone,
+      registerInfo,
+      rules,
     }
   },
 })

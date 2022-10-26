@@ -15,7 +15,6 @@ export default defineComponent({
   },
   setup() {
     const loginStore = useLoginStore()
-    console.log(loginStore)
 
     return {
       loginStore,

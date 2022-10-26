@@ -9,7 +9,6 @@ import { useMainStore } from '@/store/modules/main'
 export default defineComponent({
   setup() {
     const main = useMainStore()
-    main.getVueReqList()
 
     // axios.get('http://localhost:3333/api/list').then((res) => {
     //   console.log('axios', res)

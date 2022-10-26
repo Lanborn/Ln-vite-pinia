@@ -12,6 +12,7 @@ export default defineConfig({
     port: 3000,
     open: true,
     https: false,
+    host: '0.0.0.0',
     proxy: {
       '/api': {
         target: 'http://localhost:8080/',
@@ -30,6 +31,12 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    // AutoImport({
+    //   resolvers: [ElementPlusResolver()],
+    // }),
+    Components({
+      resolvers: [ElementPlusResolver()],
+    }),
     // gzip压缩 生产环境生成 .gz 文件
     viteCompression({
       verbose: true,
@@ -37,12 +44,6 @@ export default defineConfig({
       threshold: 10240,
       algorithm: 'gzip',
       ext: '.gz',
-    }),
-    AutoImport({
-      resolvers: [ElementPlusResolver()],
-    }),
-    Components({
-      resolvers: [ElementPlusResolver()],
     }),
   ],
   resolve: {
