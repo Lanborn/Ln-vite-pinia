@@ -21,6 +21,16 @@ const routes: RouteRecordRaw[] = [
     name: 'notFound',
     component: () => import('@/pages/not-found/not-found.vue'),
   },
+  {
+    path: '/face/login',
+    name: 'faceLogin',
+    component: () => import('@/pages/login/faceLogin.vue'),
+  },
+  {
+    path: '/chat/match',
+    name: 'chatMatch',
+    component: () => import('@/pages/chat/chat.vue'),
+  },
 ]
 
 const router = createRouter({
@@ -29,8 +39,8 @@ const router = createRouter({
 })
 
 router.beforeEach((to) => {
-  if (to.path !== '/login') {
-    const token = localCache.getCache('token')
+  if (to.path !== '/login' && to.path !== '/face/login') {
+    const token = localCache.getSessionCache('token')
     if (!token) {
       return '/login'
     }

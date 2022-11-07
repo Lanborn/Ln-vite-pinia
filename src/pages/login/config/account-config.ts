@@ -24,6 +24,13 @@ export const rules = {
       trigger: 'blur',
     },
   ],
+  sex: [
+    {
+      required: true,
+      message: '看看你是男是女',
+      trigger: 'blur',
+    },
+  ],
   email: [
     {
       required: true,

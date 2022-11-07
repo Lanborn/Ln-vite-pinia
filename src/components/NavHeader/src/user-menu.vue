@@ -16,6 +16,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import NavDialog from '@/components/NavHeader/src/cpn/NavDialog.vue'
+import router from '@/router'
 
 export default defineComponent({
   components: {
@@ -24,7 +25,6 @@ export default defineComponent({
   setup() {
     const size = 40
     const color = 'whitesmoke'
-
     const NavDialogRef = ref<InstanceType<typeof NavDialog>>()
 
     const handleClick = (tip: string) => {
@@ -33,6 +33,7 @@ export default defineComponent({
       if (tip === 'Rank') {
         NavDialogRef.value!.showDialog = 1
       } else if (tip === 'match') {
+        // router.push('/chat/match')
         NavDialogRef.value!.showDialog = 2
       }
     }

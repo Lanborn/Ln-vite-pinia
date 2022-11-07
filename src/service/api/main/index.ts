@@ -8,8 +8,14 @@ const MainApi: T.IMainApi = {
   faceSpot(params) {
     return http.upload('/face/save', params)
   },
-  getTodayInfo() {
-    return http.get('/face/list/today')
+  getTodayInfo(params) {
+    return http.get('/face/list/today', params)
+  },
+  regFaceInfo(params) {
+    return http.upload('/face/register/info', params)
+  },
+  getSevenInfo(params) {
+    return http.get('/face/list/seven', params)
   },
 }
 

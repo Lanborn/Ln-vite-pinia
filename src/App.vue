@@ -13,9 +13,9 @@ const fullscreenLoading = ref(false)
   </div>
 </template>
 
-
 <style>
 .app {
   height: 100%;
+  /* background: url('../../assets/img/bg.gif'); */
 }
 </style>

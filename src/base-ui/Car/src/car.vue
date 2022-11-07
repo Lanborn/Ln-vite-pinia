@@ -10,9 +10,7 @@
     >
       <el-carousel-item name="item.id" v-for="(item, index) in main.valueInfo" :key="index">
         <el-image style="width: 300px; height: 300px" :src="item.imgUrl" fit="cover" />
-        <h3>{{ main.faceInfo[index].age }}</h3>
-        <h3>{{ main.faceInfo[index].age }}</h3>
-        <h3>{{ main.faceInfo[index].age }}</h3>
+
         <h3 text="2xl" justify="center">{{ item }}</h3>
       </el-carousel-item>
     </el-carousel>

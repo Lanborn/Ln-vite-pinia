@@ -3,6 +3,7 @@
     <el-upload
       class="avatar-uploader"
       action="api/face/save"
+      drag
       :show-file-list="false"
       :on-success="handleAvatarSuccess"
       :before-upload="beforeAvatarUpload"
@@ -30,7 +31,9 @@
       <el-tag color="white" size="large" :hit="true" style="margin-right: 8px; font-size: 1.5rem">{{
         Gender
       }}</el-tag> -->
-
+      <div class="title">
+        <h2>数据分析</h2>
+      </div>
       <el-tooltip effect="dark" :content="'颜值：' + beauty + '分'" placement="right">
         <el-progress
           :text-inside="true"
@@ -141,9 +144,9 @@ export default defineComponent({
         loadingInstance.close()
         ElMessage.error('Avatar picture must be JPG format!')
         return false
-      } else if (rawFile.size / 1024 / 1024 > 2) {
+      } else if (rawFile.size / 1024 / 1024 / 1024 > 2) {
         loadingInstance.close()
-        ElMessage.error('Avatar picture size can not exceed 2MB!')
+        ElMessage.error('Avatar picture size can not exceed 3MB!')
         return false
       }
       loadingInstance.close()
@@ -182,11 +185,33 @@ export default defineComponent({
   .avatar-uploader {
     display: block;
   }
+  .title {
+    text-align: center;
+    // background: linear-gradient(to right, red, blue);
+    // -webkit-background-clip: text;
+    // color: transparent;
+    background-image: linear-gradient(to right, orange, purple);
+    -webkit-background-clip: text;
+    color: transparent;
+  }
 }
 .demo-progress {
   margin-left: 100px;
   background-color: transparent;
-  border: 10px solid hsla(0, 0%, 100%, 0.5);
+  // border: 1px solid hsla(0, 0%, 100%, 0.5);
+  // padding-top: 12%;
+  background: linear-gradient(to left, #2cd5ff, #2cd5ff) left top no-repeat,
+    linear-gradient(to bottom, #2cd5ff, #2cd5ff) left top no-repeat,
+    linear-gradient(to left, #2cd5ff, #2cd5ff) right top no-repeat,
+    linear-gradient(to bottom, #2cd5ff, #2cd5ff) right top no-repeat,
+    linear-gradient(to left, #2cd5ff, #2cd5ff) left bottom no-repeat,
+    linear-gradient(to bottom, #2cd5ff, #2cd5ff) left bottom no-repeat,
+    linear-gradient(to left, #2cd5ff, #2cd5ff) right bottom no-repeat,
+    linear-gradient(to left, #2cd5ff, #2cd5ff) right bottom no-repeat;
+  background-size: 4px 20px, 20px 4px, 4px 20px, 20px 4px;
+  border: 1px solid #073f97;
+  position: relative;
+
   height: 300px;
   color: whitesmoke;
 }

@@ -36,6 +36,7 @@
       </template>
     </el-dropdown>
 
+    <user-setting ref="userSetRef" />
     <nav-tips ref="navTipsRef" />
   </div>
 </template>
@@ -45,29 +46,35 @@ import { defineComponent, computed, ref } from 'vue'
 import useStore from '@/store'
 import { useRouter } from 'vue-router'
 import NavTips from './cpn/NavTips.vue'
-
 import localCache from '@/utils/cache'
+import UserSetting from './cpn/userSetting.vue'
 
 export default defineComponent({
   components: {
     NavTips,
+    UserSetting,
   },
   setup() {
     const { login } = useStore()
     const loginStore = login()
     const name = computed(() => loginStore.userInfo.username)
+    const userInfo = ref(loginStore.userInfo)
 
     const router = useRouter()
     const handleExitClick = () => {
-      localCache.deleteCache('token')
+      userInfo.value.enable = 0
+      loginStore.updateUserAction(userInfo.value)
+      localCache.deleteSessionCache('token')
+
       router.replace('/login')
     }
+    const navTipsRef = ref<InstanceType<typeof NavTips>>()
+
+    const userSetRef = ref<InstanceType<typeof UserSetting>>()
 
     const gotoGithub = () => {
-      window.location.href = 'https://github.com/Lanborn/Ln-vite-pinia/tree/develop'
+      userSetRef.value?.showDialog()
     }
-
-    const navTipsRef = ref<InstanceType<typeof NavTips>>()
 
     const showDialogClic = (flag: string) => {
       console.log(navTipsRef)
@@ -89,6 +96,7 @@ export default defineComponent({
     return {
       name,
       navTipsRef,
+      userSetRef,
       gotoGithub,
       handleExitClick,
       showDialogClic,
