@@ -9,7 +9,7 @@
       <h2>房间号： {{ home_id }}</h2>
     </div>
     <div class="pkContainer">
-      <!-- <div v-for="(item, index) in homePeopleCount" :key="index" class="user_pk_box">
+      <div v-for="(item, index) in homePeopleCount" :key="index" class="user_pk_box">
         <el-upload
           class="avatar-uploader"
           action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
@@ -21,16 +21,16 @@
           <el-icon class="avatar-uploader-icon"><Plus /></el-icon>
         </el-upload>
         <el-image v-else></el-image>
-      </div> -->
+      </div>
       <div class="user_pk_box">
-        <el-image
+        <!-- <el-image
           style="width: 300px; height: 300px"
           src="https://face-rank.oss-cn-hangzhou.aliyuncs.com/2022/10/25/xiaocao.JPG"
           :initial-index="4"
           fit="cover"
         />
         <h2>Username: xiaocao</h2>
-        <h2>Value: 79</h2>
+        <h2>Value: 79</h2> -->
       </div>
       <div class="user_pk_box">
         <el-image
