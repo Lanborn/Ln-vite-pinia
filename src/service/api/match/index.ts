@@ -8,6 +8,9 @@ const MatchApi: T.IMatchApi = {
   joinRoom(params) {
     return http.post('/sys/room/join', params)
   },
+  exitRoom(params) {
+    return http.post('/sys/room/exit', params)
+  },
 }
 
 export default MatchApi

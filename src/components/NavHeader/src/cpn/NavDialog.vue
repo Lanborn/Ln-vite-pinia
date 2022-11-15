@@ -64,7 +64,7 @@ export default defineComponent({
     const handleMatch = () => {
       isShowWhat.value = false
       match.matchPeople = 4
-      match.joinRoomAction(home_id.value, localCache.getSessionCache('userInfo').username)
+      // match.joinRoomAction(home_id.value, localCache.getSessionCache('userInfo').username)
       router.push('/chat/match')
     }
     const handleBlur = () => {
@@ -73,6 +73,10 @@ export default defineComponent({
     const handleSoloMatch = () => {
       isShowWhat.value = false
       match.matchPeople = 2
+      match.joinRoomAction({
+        roomId: match.home_id,
+        userId: localCache.getSessionCache('userInfo').id,
+      })
       router.push('/chat/match')
     }
     onBeforeMount(() => {})

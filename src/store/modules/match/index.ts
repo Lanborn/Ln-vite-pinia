@@ -20,14 +20,14 @@ export const useMatchStore = defineStore({
     async getRoomList() {
       const roomListResult = await MatchApi.getRoomList(this.pageParmas)
       this.roomList = roomListResult.data.list
-      console.log(roomListResult)
-      console.log('roomList ', this.roomList)
     },
     async joinRoomAction(params: IJoinRoomParams) {
-      params.room_id = this.home_id
-      params.username = localCache.getSessionCache('userInfo').username
       const joinRoomResult = await MatchApi.joinRoom(params)
       console.log(joinRoomResult)
+    },
+    async exitRoomAction(params: IJoinRoomParams) {
+      const exitRoomResult = await MatchApi.exitRoom(params)
+      console.log(exitRoomResult)
     },
   },
 })
