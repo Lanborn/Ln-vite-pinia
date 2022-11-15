@@ -28,6 +28,11 @@ export const useMatchStore = defineStore({
     async exitRoomAction(params: IJoinRoomParams) {
       const exitRoomResult = await MatchApi.exitRoom(params)
       console.log(exitRoomResult)
+      ElMessage.info({
+        message: exitRoomResult.data,
+        center: true,
+        showClose: true,
+      })
     },
   },
 })

@@ -12,8 +12,10 @@
       <div v-for="(item, index) in homePeopleCount" :key="index" class="user_pk_box">
         <el-upload
           class="avatar-uploader"
-          action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+          action="api/sys/pk/uploadPkImg"
+          :data="uploadParam"
           v-if="!isUpload"
+          :http-request="uploadPkInfo"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
@@ -22,15 +24,15 @@
         </el-upload>
         <el-image v-else></el-image>
       </div>
-      <div class="user_pk_box">
-        <!-- <el-image
+      <!-- <div class="user_pk_box">
+        <el-image
           style="width: 300px; height: 300px"
           src="https://face-rank.oss-cn-hangzhou.aliyuncs.com/2022/10/25/xiaocao.JPG"
           :initial-index="4"
           fit="cover"
         />
         <h2>Username: xiaocao</h2>
-        <h2>Value: 79</h2> -->
+        <h2>Value: 79</h2>
       </div>
       <div class="user_pk_box">
         <el-image
@@ -41,10 +43,10 @@
         />
         <h2>Username: 小Q</h2>
         <h2>Value: 69</h2>
-      </div>
+      </div> -->
     </div>
     <div class="resultInfo">
-      <h2>xiaoao Win！！！</h2>
+      <!-- <h2>xiaoao Win！！！</h2> -->
     </div>
   </div>
 </template>
@@ -58,6 +60,7 @@ import { Plus } from '@element-plus/icons-vue'
 import { ElNotification } from 'element-plus'
 import localCache from '@/utils/cache'
 import type { UploadProps } from 'element-plus'
+import axios from 'axios'
 
 export default defineComponent({
   components: {
@@ -95,7 +98,10 @@ export default defineComponent({
     const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
       imageUrl.value = URL.createObjectURL(uploadFile.raw!)
     }
-
+    let uploadParam = ref({
+      homeId: matchStore.value.home_id,
+      username: localCache.getSessionCache('userInfo').username,
+    })
     const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
       if (rawFile.type !== 'image/jpeg' && rawFile.type !== 'image/png') {
         ElMessage.error('Avatar picture must be JPG format!')
@@ -106,10 +112,27 @@ export default defineComponent({
       }
       return true
     }
+    console.log('uploadParam', uploadParam)
+    const uploadPkInfo = (f: any) => {
+      let param = new FormData()
+      param.append('file', f.file)
+      param.append('home_id', home_id.value)
+      param.append('username', localCache.getSessionCache('userInfo').username)
+      axios
+        .post('http://localhost:3000/api/sys/pk/uploadPkImg', param, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        .then((res) => {
+          console.log(res)
+        })
+    }
 
     var webSocket = new WebSocket(`ws://localhost:8080/ws?id=${home_id.value}&token=${token.value}`)
     function onMessage(event: any) {
-      console.log(event.data)
+      // console.log(event.data)
+      const resMessage = JSON.stringify(event.data)
+      console.log(resMessage)
+
       ElMessage.warning({
         message: event.data,
         showClose: true,
@@ -117,9 +140,6 @@ export default defineComponent({
       })
     }
     function onOpen(event: any) {
-      console.log(event)
-      // webSocket.send('连接上了')
-      // webSocket.send(`${userInfo.value.username}加入了房间${home_id.value}`)
       ElMessage.success({
         message: '加入房间',
         showClose: true,
@@ -187,12 +207,14 @@ export default defineComponent({
       homePeopleCount,
       currentDate,
       isUpload,
+      uploadParam,
       handleAvatarSuccess,
       beforeAvatarUpload,
       handleBack,
       beforeunloadFn,
       unloadHandler,
       handleTest,
+      uploadPkInfo,
     }
   },
   mounted() {
